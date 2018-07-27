@@ -7,7 +7,7 @@
 	<groupId>com.openthinks.demo</groupId>
 	<artifactId>spring-boot-mybatis-generator-template</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>war</packaging>
 
 	<name>spring-boot-mybatis-generator-template</name>
 	<description>Demo project for Spring Boot</description>
@@ -129,26 +129,19 @@
 			<artifactId>openlibs.utilities</artifactId>
 			<version>1.2.2</version>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 
 	<build>
+		<finalName>${project.name}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<!-- remote debug -->
-				<configuration>
-					<fork>true</fork>
-					<jvmArguments>-Xdebug
-						-Xrunjdwp:transport=dt_socket,server=y,suspend=y,address=5005</jvmArguments>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>build-info</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>com.github.alexmao86</groupId>
@@ -207,17 +200,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
-				<version>${maven-antrun-plugin.version}</version>
+				<version>${jweb.maven.plugin.version}</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.mybatis.generator</groupId>
 						<artifactId>mybatis-generator-core</artifactId>
-						<version>${mybatis-generator-core.version}</version>
+						<version>1.3.5</version>
 					</dependency>
 					<dependency>
 						<groupId>com.github.alexmao86</groupId>
 						<artifactId>jweb-maven-plugin</artifactId>
-						<version>${jweb.maven.plugin.version}</version>
+						<version>1.0.8</version>
 					</dependency>
 				</dependencies>
 				<executions>
@@ -282,6 +275,25 @@
 				</executions>
 			</plugin>
 			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>properties-maven-plugin</artifactId>
+				<version>${properties-maven-plugin.version}</version>
+				<executions>
+					<execution>
+						<id>default-cli</id>
+						<phase>initialize</phase>
+						<goals>
+							<goal>read-project-properties</goal>
+						</goals>
+						<configuration>
+							<files>
+								<file>${basedir}/src/main/etc/prj.properties</file>
+							</files>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-eclipse-plugin</artifactId>
 				<configuration>
@@ -308,25 +320,6 @@
 						<nonFilteredFileExtension>ico</nonFilteredFileExtension>
 					</nonFilteredFileExtensions>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>properties-maven-plugin</artifactId>
-				<version>${properties-maven-plugin.version}</version>
-				<executions>
-					<execution>
-						<id>default-cli</id>
-						<phase>initialize</phase>
-						<goals>
-							<goal>read-project-properties</goal>
-						</goals>
-						<configuration>
-							<files>
-								<file>${basedir}/src/main/etc/prj.properties</file>
-							</files>
-						</configuration>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 		<!--配置Maven 对配置文件进行 过滤 -->
