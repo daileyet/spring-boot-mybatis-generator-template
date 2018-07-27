@@ -24,3 +24,8 @@
 /nbdist/
 /.nb-gradle/
 \.mvn/
+
+bin/
+target/
+*.log
+/**/generatorConfig.properties

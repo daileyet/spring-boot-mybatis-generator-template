@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="zh-cn" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Demo Index</title>
+		<link rel="icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" type="image/x-icon" />
+    	<link rel="shortcut icon" href="../static/favicon.ico" th:href="@{/favicon.ico}" type="image/x-icon" />
+		<!-- zui -->
+		<link href="../static/css/zui.min.css" rel="stylesheet" th:href="@{/css/zui.min.css}">
+		<link href="../static/css/style.css" rel="stylesheet" th:href="@{/css/style.css}">
+		<!--[if lt IE 9]>
+		   <script src="../static/lib/ieonly/html5shiv.js" th:src="@{/lib/ieonly/html5shiv.js}"></script>
+		   <script src="../static/lib/ieonly/respond.js" th:src="@{/lib/ieonly/respond.js}"></script>
+		   <script src="../static/lib/ieonly/excanvas.js" th:src="@{/lib/ieonly/excanvas.js}"></script>
+		<![endif]-->
+	</head>
+
+	<body >
+		<header th:replace="fragments :: header"></header>
+		<div id="page" >
+			<div id="pageHeader">
+				<div class="wrapper container">
+					<i class="icon icon-file-archive"></i>
+					<h2>首页</h2>
+				</div>
+			</div>
+			<div id="pageBody">
+				<div class="container">
+					<div id="pageContent">
+						Welcome!
+					</div>
+				</div>
+			</div>
+		</div>
+		<footer th:include="fragments :: footer"></footer>
+
+		<!-- jQuery (ZUI中的Javascript组件依赖于jQuery) -->
+		<script src="../static/lib/jquery/jquery.js" th:src="@{/lib/jquery/jquery.js}"></script>
+		<!-- ZUI Javascript组件 -->
+		<script src="../static/js/zui.min.js" th:src="@{/js/zui.min.js}"></script>
+	</body>
+
+</html>

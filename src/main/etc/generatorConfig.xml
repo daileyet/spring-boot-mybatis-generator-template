@@ -18,8 +18,12 @@
 
 		<!-- hashCode和equals插件 -->
 		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
 
 		<!-- 自定义以创建者模式coding的插件 -->
+		<plugin type="net.sourceforge.jweb.mybatis.generator.plugins.PagePlugin" />
+		
 		<plugin
 			type="net.sourceforge.jweb.mybatis.generator.plugins.ModelBuilderPlugin">
 			<property name="builderClassName" value="Builder" />
@@ -31,9 +35,10 @@
 		</plugin>
 		<plugin
 			type="net.sourceforge.jweb.mybatis.generator.plugins.SubqueryCriteriaPlugin" />
-		<plugin type="net.sourceforge.jweb.mybatis.generator.plugins.PagePlugin" />
+			
 		<plugin
 			type="net.sourceforge.jweb.mybatis.generator.plugins.AdvancedWhereClausePlugin" />
+			
 		<plugin
 			type="net.sourceforge.jweb.mybatis.generator.plugins.UserDefinedXMLMapperPlugin">
 			<property name="baseDirectory" value="src/main/etc/mapper" />
@@ -48,7 +53,7 @@
 			password="${generatorPassword}">
 		</jdbcConnection>
 
-		<javaModelGenerator targetPackage="com.openthinks.demo.springbootmybatisgeneratortemplate.core.model"
+		<javaModelGenerator targetPackage="${javaPackagePrefix}.model"
 			targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
@@ -60,7 +65,7 @@
 		</sqlMapGenerator>
 
 		<javaClientGenerator type="XMLMAPPER"
-			targetPackage="com.openthinks.demo.springbootmybatisgeneratortemplate.core.mapper" targetProject="src/main/java">
+			targetPackage="${javaPackagePrefix}.mapper" targetProject="src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		
@@ -68,12 +73,20 @@
 		<!-- #################################################################################################################### -->
 		
 		
-		<table tableName="user" domainObjectName="User">
+		<table tableName="sys_user" domainObjectName="SystemUser">
 			<property name="AdvancedWhereClausePluginEnabled" value="false" />
 			<generatedKey column="id" sqlStatement="SELECT UUID_SHORT()" identity="false"/>
 		</table>
 		
+		<table tableName="sys_role" domainObjectName="SystemRole">
+			<property name="AdvancedWhereClausePluginEnabled" value="false" />
+			<generatedKey column="id" sqlStatement="SELECT UUID_SHORT()" identity="false"/>
+		</table>
 		
+		<table tableName="sys_user_role" domainObjectName="SystemUserRole">
+			<property name="AdvancedWhereClausePluginEnabled" value="false" />
+			<generatedKey column="id" sqlStatement="SELECT UUID_SHORT()" identity="false"/>
+		</table>
 
 	</context>
 </generatorConfiguration>
