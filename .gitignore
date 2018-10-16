@@ -26,3 +26,6 @@
 \.mvn/
 
 bin/
+target/
+*.log
+/**/generatorConfig.properties
