@@ -30,6 +30,7 @@
 		<mybatis.core.mapper.package>${mybatis.core.package}.mapper</mybatis.core.mapper.package>
 		<mybatis.core.model.dir>${mybatis.core.dir}/model</mybatis.core.model.dir>
 		<mybatis.core.mapper.dir>${mybatis.core.dir}/mapper</mybatis.core.mapper.dir>
+		<module_args>--logging.file=${RUN_HOME}/logs/tmp.log</module_args>
 	</properties>
 	
 	<profiles>
@@ -222,6 +223,37 @@
 								<ant antfile="${basedir}/build.xml" target="generate" />
 							</tasks>
 						</configuration>
+					</execution>
+					<!-- build dist -->
+					<execution>
+						<id>install</id>
+						<phase>install</phase>
+						<configuration>
+							<target>
+							<property name="compile_classpath"
+									refid="maven.compile.classpath" />
+								<property name="runtime_classpath"
+									refid="maven.runtime.classpath" />
+								<property name="test_classpath"
+									refid="maven.test.classpath" />
+								<property name="plugin_classpath"
+									refid="maven.plugin.classpath" />
+								<property name="basedir" value="${basedir}" />
+								<property name="build_version"
+									value="${project.version}" />
+								<property name="module_name"
+									value="${project.name}" />
+								<property name="build_name" value="${project.name}-${project.version}"/>
+								<property name="build_name" value="${project.build.finalName}"/>
+								<property name="build_suffix" value="${project.packaging}"/>
+								<ant antfile="${basedir}/dist.xml">
+									<target name="build" />
+								</ant>
+							</target>
+						</configuration>
+						<goals>
+							<goal>run</goal>
+						</goals>
 					</execution>
 				</executions>
 			</plugin>
