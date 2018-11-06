@@ -72,6 +72,20 @@ public class SystemUser {
         return result;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getClass().getSimpleName());
+        sb.append(" [");
+        sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", userName=").append(userName);
+        sb.append(", userPass=").append(userPass);
+        sb.append(", createTime=").append(createTime);
+        sb.append("]");
+        return sb.toString();
+    }
+
     public static class Builder {
         private SystemUser obj;
 

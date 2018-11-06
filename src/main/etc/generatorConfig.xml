@@ -18,8 +18,12 @@
 
 		<!-- hashCode和equals插件 -->
 		<plugin type="org.mybatis.generator.plugins.EqualsHashCodePlugin" />
+		
+		<plugin type="org.mybatis.generator.plugins.ToStringPlugin" />
 
 		<!-- 自定义以创建者模式coding的插件 -->
+		<plugin type="net.sourceforge.jweb.mybatis.generator.plugins.PagePlugin" />
+		
 		<plugin
 			type="net.sourceforge.jweb.mybatis.generator.plugins.ModelBuilderPlugin">
 			<property name="builderClassName" value="Builder" />
@@ -31,9 +35,10 @@
 		</plugin>
 		<plugin
 			type="net.sourceforge.jweb.mybatis.generator.plugins.SubqueryCriteriaPlugin" />
-		<plugin type="net.sourceforge.jweb.mybatis.generator.plugins.PagePlugin" />
+			
 		<plugin
 			type="net.sourceforge.jweb.mybatis.generator.plugins.AdvancedWhereClausePlugin" />
+			
 		<plugin
 			type="net.sourceforge.jweb.mybatis.generator.plugins.UserDefinedXMLMapperPlugin">
 			<property name="baseDirectory" value="src/main/etc/mapper" />

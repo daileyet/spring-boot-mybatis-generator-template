@@ -17,9 +17,9 @@ public interface SystemRoleMapper {
 
     int insertSelective(SystemRole record);
 
-    SystemRole selectOneByExample(SystemRoleExample example);
+    List<SystemRole> selectByExampleWithRowbounds(SystemRoleExample example, Page<SystemRole> rowBounds);
 
-    List<SystemRole> selectByExampleWithRowbounds(SystemRoleExample example, Page rowBounds);
+    SystemRole selectOneByExample(SystemRoleExample example);
 
     List<SystemRole> selectByExample(SystemRoleExample example);
 

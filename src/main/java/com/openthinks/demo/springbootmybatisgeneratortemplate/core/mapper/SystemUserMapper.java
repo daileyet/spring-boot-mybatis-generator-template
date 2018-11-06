@@ -17,9 +17,9 @@ public interface SystemUserMapper {
 
     int insertSelective(SystemUser record);
 
-    SystemUser selectOneByExample(SystemUserExample example);
+    List<SystemUser> selectByExampleWithRowbounds(SystemUserExample example, Page<SystemUser> rowBounds);
 
-    List<SystemUser> selectByExampleWithRowbounds(SystemUserExample example, Page rowBounds);
+    SystemUser selectOneByExample(SystemUserExample example);
 
     List<SystemUser> selectByExample(SystemUserExample example);
 
