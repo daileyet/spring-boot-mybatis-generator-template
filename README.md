@@ -8,6 +8,7 @@ Server common project include
 * app common configuration
 * utilties
 * sample db schema
+* sharding-sphere jdbc
 
 ## sprj-connector
 

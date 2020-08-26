@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<project name="sample">
+	<target name="test">
+		<condition property="needRun" value="true" else="false">
+			<equals arg1="${build_suffix}" arg2="jar"/>
+		</condition>
+		<echo>Need build or not? - ${needRun}</echo>	
+	</target>
+	<target name="toBuild" if="${needRun}" depends="test">		
+		<antcall target="build"></antcall>
+	</target>
+	<target name="show">
+		<echo message="basedir: ${basedir}" />
+		<!--
+		<echo message="compile classpath: ${compile_classpath}" />
+		<echo message="runtime classpath: ${runtime_classpath}" />
+		<echo message="test classpath:    ${test_classpath}" />
+		<echo message="plugin classpath:  ${plugin_classpath}" />
+		-->
+		<echo message="module name:  ${module_name}" />
+		<echo message="SpringBoot args:  ${module_args}" />
+		<echo message="build name:  ${build_name}" />
+		<echo message="build version: ${build_version}" />
+		<echo message="build suffix:  ${build_suffix}" />			
+	</target>
+	<target name="mkdir">
+		<delete dir="${basedir}/target/build" />
+		<mkdir dir="${basedir}/target/build" />
+		<mkdir dir="${basedir}/target/build/bin" />
+		<mkdir dir="${basedir}/target/build/lib" />
+		<mkdir dir="${basedir}/target/build/logs" />
+	</target>
+	<target name="copyjar" depends="mkdir">
+		<echo message="Copy executable jar:${module_name}" />
+		<copy todir="${basedir}/target/build/lib">
+			<fileset dir="${basedir}/target" casesensitive="no">
+				<include name="*${module_name}*.${build_suffix}" />
+			</fileset>
+		</copy>
+	</target>
+	<target name="copyscript" depends="mkdir">
+		<echo message="Create start/stop script:${module_name}" />
+		<copy file="${basedir}/src/main/etc/template.sh" tofile="${basedir}/target/build/bin/${module_name}.sh" overwrite="true" encoding="UTF-8" />
+		<replace file="${basedir}/target/build/bin/${module_name}.sh" value="" encoding="UTF-8">
+			<replacefilter token="#MODULE_NAME#" value="${module_name}" />
+			<replacefilter token="#MODULE_VERSION#" value="${build_version}" />
+			<replacefilter token="#MODULE_ARGS#" value="${module_args}" />
+			<replacefilter token="#BUILD_NAME#" value="${build_name}" />
+			<replacefilter token="#BUILD_SUFFIX#" value="${build_suffix}" />
+		</replace>
+
+		<fixcrlf srcdir="${basedir}/target/build/bin" includes="**/*.sh" eol="lf" eof="remove" encoding="UTF-8" outputencoding="UTF-8" />
+
+		<copy file="${basedir}/src/main/etc/template.bat" tofile="${basedir}/target/build/bin/${module_name}.bat" overwrite="true" encoding="UTF-8" />
+		<replace file="${basedir}/target/build/bin/${module_name}.bat" value="" encoding="UTF-8">
+			<replacefilter token="#MODULE_NAME#" value="${module_name}" />
+			<replacefilter token="#MODULE_VERSION#" value="${build_version}" />
+			<replacefilter token="#MODULE_ARGS#" value="${module_args}" />
+			<replacefilter token="#BUILD_NAME#" value="${build_name}" />
+			<replacefilter token="#BUILD_SUFFIX#" value="${build_suffix}" />
+		</replace>
+		<replace file="${basedir}/target/build/bin/${module_name}.bat" value="" encoding="UTF-8">
+			<replacefilter token="${RUN_HOME}" value="%RUN_HOME%" />
+		</replace>
+	</target>
+	<target name="build" depends="show,copyjar,copyscript">
+		<tar destfile="${basedir}/target/build/${build_name}.tar" basedir="${basedir}/target/build" excludes="*.bat" />
+		<zip destfile="${basedir}/target/build/${build_name}.zip" basedir="${basedir}/target/build" excludes="*.tar" />
+	</target>
+	
+</project>
