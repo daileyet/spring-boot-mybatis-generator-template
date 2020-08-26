@@ -1,5 +1,14 @@
 <?xml version="1.0"?>
 <project name="sample">
+	<target name="test">
+		<condition property="needRun" value="true" else="false">
+			<equals arg1="${build_suffix}" arg2="jar"/>
+		</condition>
+		<echo>Need build or not? - ${needRun}</echo>	
+	</target>
+	<target name="toBuild" if="${needRun}" depends="test">		
+		<antcall target="build"></antcall>
+	</target>
 	<target name="show">
 		<echo message="basedir: ${basedir}" />
 		<!--

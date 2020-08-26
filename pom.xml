@@ -7,7 +7,7 @@
 	<groupId>com.openthinks.demo</groupId>
 	<artifactId>spring-boot-mybatis-generator-template</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>jar</packaging>
+	<packaging>${packaging.style}</packaging>
 
 	<name>spring-boot-mybatis-generator-template</name>
 	<description>Demo project for Spring Boot</description>
@@ -20,6 +20,7 @@
 	</parent>
 
 	<properties>
+		<packaging.style>jar</packaging.style>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -271,7 +272,7 @@
 								<property name="build_suffix"
 									value="${project.packaging}" />
 								<ant antfile="${basedir}/dist.xml">
-									<target name="build" />
+									<target name="toBuild" />
 								</ant>
 							</target>
 						</configuration>

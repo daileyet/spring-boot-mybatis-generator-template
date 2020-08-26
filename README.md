@@ -12,10 +12,6 @@ https://start.spring.io/
 ## Convert jar to war
 
 ### pom.xml
-```xml
-<!-- <packaging>jar</packaging> -->
-	<packaging>war</packaging>
-```
 
 ```xml
 	<!-- set scope provided-->
@@ -40,6 +36,18 @@ public class SpringBootMybatisGeneratorTemplateApplication extends SpringBootSer
 		return builder.sources(SpringBootMybatisGeneratorTemplateApplication.class);
 	}
 }
-
-
 ```
+
+```shell
+# compile and install
+mvn clean install -Dpackaging.style=war
+```
+
+## Template projects
+
+### Quick template projects
+```shell
+git clone -b  template-quick https://github.com/daileyet/spring-boot-mybatis-generator-template.git
+```
+
+
