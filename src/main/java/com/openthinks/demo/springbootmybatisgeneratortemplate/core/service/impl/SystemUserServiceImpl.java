@@ -1,6 +1,7 @@
 package com.openthinks.demo.springbootmybatisgeneratortemplate.core.service.impl;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,7 +22,6 @@ import com.openthinks.demo.springbootmybatisgeneratortemplate.core.model.SystemU
 import com.openthinks.demo.springbootmybatisgeneratortemplate.core.model.SystemUserRole;
 import com.openthinks.demo.springbootmybatisgeneratortemplate.core.model.SystemUserRoleExample;
 import com.openthinks.demo.springbootmybatisgeneratortemplate.core.service.SystemUserService;
-import com.openthinks.libs.utilities.DateUtils;
 
 import net.sourceforge.orm.mybatis.Page;
 
@@ -73,7 +73,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     try {
       if (record.getId() == null) {// insert
         if (record.getCreateTime() == null) {
-          record.setCreateTime(DateUtils.now());
+          record.setCreateTime(new Date());
         }
         userMapper.insertSelective(record);
       } else {
@@ -110,7 +110,7 @@ public class SystemUserServiceImpl implements SystemUserService {
     try {
       if (record.getId() == null) {// insert
         if (record.getCreateTime() == null) {
-          record.setCreateTime(DateUtils.now());
+          record.setCreateTime(new Date());
         }
         roleMapper.insertSelective(record);
       } else {
