@@ -1,45 +1,25 @@
-# spring-boot-mybatis-generator-template
-Springboot with mybatis and mybatis generator
-https://start.spring.io/
+# Template Server Project
 
-## Features
-1.	Spring boot web, json support
-2.  Spring boot mybatis
-3.  Mybatis generator plugins
-4.  JSON converter and property configurable 
-5.	add ant build for shell script and install zip
+## sprj-common
 
-## Convert jar to war
+Server common project include 
+* mybatis generator plugin
+* mysql connector
+* app common configuration
+* utilties
+* sample db schema
 
-### pom.xml
-```xml
-<!-- <packaging>jar</packaging> -->
-	<packaging>war</packaging>
-```
+## sprj-connector
 
-```xml
-	<!-- set scope provided-->
-	<!-- package war -->
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-tomcat</artifactId>
-		<scope>provided</scope>
-	</dependency>
-```
+Server backend project which will handle client TCP/UDP connection, it will include
+* spring-boot start
+* netty support
+* include `sprj-common`
 
-### SpringBootServletInitializer
-```java
-public class SpringBootMybatisGeneratorTemplateApplication extends SpringBootServletInitializer{
+## sprj-web
 
-	public static void main(String[] args) {
-		SpringApplication.run(SpringBootMybatisGeneratorTemplateApplication.class, args);
-	}
-	
-	@Override
-	protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-		return builder.sources(SpringBootMybatisGeneratorTemplateApplication.class);
-	}
-}
-
-
-```
+Server web protal which serve HTTP request
+* spring-boot start
+* tomcat or undertow
+* use thymeleaf, spring-security
+* include `sprj-common`
