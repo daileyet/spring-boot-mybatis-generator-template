@@ -5,12 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.openthinks.demo</groupId>
-	<artifactId>sprj-web</artifactId>
+	<artifactId>sprj-links</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>${packaging.style}</packaging>
+	<packaging>jar</packaging>
 
-	<name>sprj-web</name>
-	<description>Template project for Server web project</description>
+	<name>sprj-links</name>
+	<description>Template project for Server links project</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
@@ -20,16 +20,15 @@
 	</parent>
 
 	<properties>
-		<packaging.style>jar</packaging.style>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
-		<commons.lang.version>2.6</commons.lang.version>
 		<openlibs.utilities.version>1.2.2.4</openlibs.utilities.version>
+		<netty.version>4.1.37.Final</netty.version>
 		<maven-antrun-plugin.version>1.8</maven-antrun-plugin.version>
 		<maven.debug.run>false</maven.debug.run>
 		<properties-maven-plugin.version>1.0.0</properties-maven-plugin.version>
-		<module_args>--logging.file=${RUN_HOME}/logs/sprj.web.log</module_args>
+		<module_args>--logging.file=${RUN_HOME}/logs/sprj.links.log</module_args>
 	</properties>
 
 	<profiles>
@@ -45,10 +44,9 @@
 		<profile>
 			<id>prod</id>
 			<properties>
-				<module_args>--logging.file=${RUN_HOME}/logs/sprj.web.log
-					--spring.jmx.default-domain=com.openthinks.demo.web
-					--server.port=8000
-				</module_args>
+				<module_args>--logging.file=${RUN_HOME}/logs/sprj.links.log
+					--spring.jmx.default-domain=com.openthinks.demo.links
+					--server.port=8000</module_args>
 			</properties>
 		</profile>
 	</profiles>
@@ -60,54 +58,26 @@
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-web</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-tomcat</artifactId>
-				</exclusion>
-			</exclusions>
+			<groupId>com.openthinks.libs</groupId>
+			<artifactId>openlibs.utilities</artifactId>
+			<version>${openlibs.utilities.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/io.netty/netty-all -->
+		<dependency>
+			<groupId>io.netty</groupId>
+			<artifactId>netty-all</artifactId>
+			<version>${netty.version}</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/junit/junit -->
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
-		</dependency>
-
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-web</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-undertow</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.security</groupId>
-			<artifactId>spring-security-config</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>com.openthinks.libs</groupId>
-			<artifactId>openlibs.utilities</artifactId>
-			<version>${openlibs.utilities.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>commons-lang</groupId>
-			<artifactId>commons-lang</artifactId>
-			<version>${commons.lang.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -139,7 +109,7 @@
 						<id>install</id>
 						<phase>install</phase>
 						<configuration>
-							<target name="antrun">
+							<target>
 								<property name="compile_classpath"
 									refid="maven.compile.classpath" />
 								<property name="runtime_classpath"
@@ -185,20 +155,6 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<nonFilteredFileExtensions>
-						<nonFilteredFileExtension>woff</nonFilteredFileExtension>
-						<nonFilteredFileExtension>woff2</nonFilteredFileExtension>
-						<nonFilteredFileExtension>eot</nonFilteredFileExtension>
-						<nonFilteredFileExtension>ttf</nonFilteredFileExtension>
-						<nonFilteredFileExtension>svg</nonFilteredFileExtension>
-						<nonFilteredFileExtension>ico</nonFilteredFileExtension>
-					</nonFilteredFileExtensions>
-				</configuration>
-			</plugin>
-			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>properties-maven-plugin</artifactId>
 				<version>${properties-maven-plugin.version}</version>
@@ -232,22 +188,8 @@
 				<directory>src/main/resources</directory>
 				<filtering>true</filtering>
 			</resource>
-			<resource>
-				<directory>${project.basedir}/src/main/resources</directory>
-				<filtering>true</filtering>
-				<excludes>
-					<exclude>static/fonts/**</exclude>
-					<exclude>static/img/**</exclude>
-				</excludes>
-			</resource>
-			<resource>
-				<directory>${project.basedir}/src/main/resources</directory>
-				<filtering>false</filtering>
-				<includes>
-					<include>static/fonts/**</include>
-					<include>static/img/**</include>
-				</includes>
-			</resource>
 		</resources>
 	</build>
+
+
 </project>

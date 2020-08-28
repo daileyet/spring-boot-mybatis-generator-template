@@ -10,11 +10,12 @@ Server common project include
 * sample db schema
 * sharding-sphere jdbc
 
-## sprj-connector
+## sprj-links
 
 Server backend project which will handle client TCP/UDP connection, it will include
 * spring-boot start
 * netty support
+* support TCP channel and JSON message received base on netty
 * include `sprj-common`
 
 ## sprj-web

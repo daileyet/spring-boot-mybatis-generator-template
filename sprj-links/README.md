@@ -1,4 +1,4 @@
-# sprj-web
+# sprj-links
 
 ## run as default
 
@@ -12,8 +12,3 @@ mvn spring-boot:run
 mvn clean install
 ```
 
-## package as War
-
-```shell
-mvn clean install -Dpackaging.style=war
-``` 
